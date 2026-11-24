@@ -332,3 +332,11 @@ details > div p:last-child { margin: 0; }
 
 h1, h2, h3 { text-wrap: balance; }
 .lead { text-wrap: pretty; }
+
+/* texte juridique */
+.prose h2 { font-size: 1.35rem; margin: 2.2em 0 0.6em; padding-top: 1.2em; border-top: 1px solid var(--line); }
+.prose h2:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+.prose p, .prose li { color: var(--muted); }
+.prose strong { color: var(--text); }
+.prose ul { padding-left: 1.2em; display: grid; gap: 10px; }
+.legal a { color: var(--muted); }
