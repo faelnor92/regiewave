@@ -1,6 +1,6 @@
 # RegieWave
 
-Logiciel tout-en-un pour Windows : **direct** (comme OBS), **régie**,
+Logiciel tout-en-un pour Windows et Linux : **direct** (comme OBS), **régie**,
 **montage**, **composition** et **son**.
 
 [![RegieWave en direct : un jeu, un avatar qui parle, le chat, puis un changement de scène](docs/images/apercu.gif)](https://faelnor92.github.io/regiewave/#video)
@@ -21,11 +21,13 @@ Logiciel tout-en-un pour Windows : **direct** (comme OBS), **régie**,
 > before an important live show, keep a copy of your projects, and
 > [report problems](https://github.com/faelnor92/regiewave/issues).
 
-Ce dépôt sert seulement à **publier les versions** de RegieWave : les
-installateurs sont dans [Releases](https://github.com/faelnor92/regiewave/releases).
+Ce dépôt sert seulement à **publier les versions** de RegieWave : l'installateur
+Windows et l'AppImage Linux sont dans
+[Releases](https://github.com/faelnor92/regiewave/releases). Sous Windows,
 RegieWave y cherche lui-même ses mises à jour (Outils → Mises à jour…), les
 télécharge, vérifie leur empreinte SHA-256 donnée par GitHub, puis les
-installe en gardant la version précédente pour pouvoir y revenir.
+installe en gardant la version précédente pour pouvoir y revenir. Sous Linux,
+téléchargez la nouvelle AppImage et remplacez l'ancienne.
 
 ## En images
 
@@ -44,6 +46,8 @@ lié ni à OBS, ni à Twitch, ni aux auteurs de ces œuvres.
 
 ## Installer
 
+### Windows
+
 1. Dans la [dernière version](https://github.com/faelnor92/regiewave/releases/latest),
    téléchargez `RegieWave-<version>-installation.exe`.
 2. Lancez-le et choisissez :
@@ -59,6 +63,25 @@ besoin est inclus (FFmpeg, Chromium pour les pages web, runtime Visual C++).
 L'installateur n'est pas encore signé : Windows SmartScreen peut afficher un
 avertissement au premier lancement (« Informations complémentaires » →
 « Exécuter quand même »).
+
+### Linux (AppImage)
+
+1. Dans la [dernière version](https://github.com/faelnor92/regiewave/releases/latest),
+   téléchargez `RegieWave-<version>-x86_64.AppImage`.
+2. Rendez-le exécutable puis lancez-le :
+
+   ```sh
+   chmod +x RegieWave-*-x86_64.AppImage
+   ./RegieWave-*-x86_64.AppImage
+   ```
+
+   Sans FUSE sur votre système : `./RegieWave-*-x86_64.AppImage --appimage-extract-and-run`.
+
+Linux 64 bits récent (glibc 2.36 ou plus : Debian 12, Ubuntu 23.04,
+Fedora 37…). Un seul fichier, sans installation : FFmpeg et Chromium (pour les
+pages web) y sont inclus ; PipeWire, Vulkan et les pilotes graphiques sont ceux
+de votre ordinateur. Vérifiez le fichier avec `sha256sum` : l'empreinte est
+affichée sur la page de la version.
 
 ## Signaler un problème
 
@@ -78,7 +101,8 @@ gardé dans le dossier `licences` de l'installation.
 
 ## Logiciels inclus et licences
 
-Leurs licences sont dans le dossier `licences` de l'installation.
+Leurs licences sont dans le dossier `licences` de l'installation (Windows) ou
+dans `usr/share/licenses/regiewave` de l'AppImage (Linux).
 
 - **FFmpeg 7.1** (LGPL 3, avec le texte de la GPL 3 qu'elle complète), en
   bibliothèques séparées (`av*.dll`, `sw*.dll`) que l'on peut remplacer, et
