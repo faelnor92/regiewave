@@ -1,6 +1,7 @@
 /* RegieWave — assistant du site (la mascotte). Les mouvements s'éteignent avec « réduire les animations ». */
 
-.rw-root { position: fixed; right: 18px; bottom: 18px; z-index: 9980; font: 15px/1.5 var(--font); color: var(--text); }
+.rw-root { position: fixed; right: var(--rw-r, 18px); bottom: var(--rw-b, 18px); z-index: 9980; font: 15px/1.5 var(--font); color: var(--text); }
+.rw-root { transition: none !important; } /* la mascotte suit la souris sans retard (même si le site raccourcit toutes les transitions) */
 .rw-root * { box-sizing: border-box; }
 
 /* ───── la mascotte ───── */
@@ -14,10 +15,14 @@
 .rw-float.is-wave .rw-img { animation: rw-wave 1.7s ease-in-out; }
 @keyframes rw-wave { 0%, 100% { transform: rotate(0); } 12% { transform: rotate(-13deg); } 28% { transform: rotate(11deg); } 44% { transform: rotate(-9deg); } 60% { transform: rotate(7deg); } 78% { transform: rotate(-3deg); } }
 .rw-float.is-hop .rw-img { animation: rw-hop 1.1s cubic-bezier(.3, .8, .4, 1); }
+/* tenue par la souris : elle se balance un peu */
+.rw-float.is-held .rw-img { animation: rw-held 0.45s ease-in-out infinite alternate; }
+@keyframes rw-held { from { transform: rotate(-8deg) scale(1.05, 0.97); } to { transform: rotate(8deg) scale(0.97, 1.05); } }
 @keyframes rw-hop { 0% { transform: scale(1.06, 0.92); } 25% { transform: translateY(-20px) scale(0.96, 1.08); } 50% { transform: translateY(0) scale(1.06, 0.92); } 70% { transform: translateY(-9px) scale(0.98, 1.04); } 100% { transform: none; } }
 
-.rw-launch { position: relative; display: block; width: 92px; height: 92px; padding: 6px; border: 1px solid var(--line-strong); border-radius: 50%; cursor: pointer; background: radial-gradient(circle at 50% 35%, rgba(123, 77, 255, 0.55), rgba(21, 17, 58, 0.92) 70%); box-shadow: 0 14px 40px -8px rgba(0, 0, 0, 0.7), 0 0 0 0 rgba(123, 77, 255, 0.6); transition: transform 0.25s, box-shadow 0.25s; animation: rw-ring 3.4s ease-out 2s infinite; }
+.rw-launch { touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none; position: relative; display: block; width: 92px; height: 92px; padding: 6px; border: 1px solid var(--line-strong); border-radius: 50%; cursor: pointer; background: radial-gradient(circle at 50% 35%, rgba(123, 77, 255, 0.55), rgba(21, 17, 58, 0.92) 70%); box-shadow: 0 14px 40px -8px rgba(0, 0, 0, 0.7), 0 0 0 0 rgba(123, 77, 255, 0.6); transition: transform 0.25s, box-shadow 0.25s; animation: rw-ring 3.4s ease-out 2s infinite; }
 .rw-launch:hover { transform: scale(1.07); }
+.rw-launch.is-dragging { cursor: grabbing; animation: none; transform: scale(1.08); box-shadow: 0 24px 50px -10px rgba(0, 0, 0, 0.8), 0 0 40px 2px rgba(123, 77, 255, 0.6); }
 .rw-launch.is-open { animation: none; transform: scale(0.94); }
 .rw-launch .rw-float { width: 100%; height: 100%; }
 @keyframes rw-ring { 0% { box-shadow: 0 14px 40px -8px rgba(0, 0, 0, 0.7), 0 0 0 0 rgba(123, 77, 255, 0.6); } 55%, 100% { box-shadow: 0 14px 40px -8px rgba(0, 0, 0, 0.7), 0 0 0 22px rgba(123, 77, 255, 0); } }
@@ -83,7 +88,6 @@
 .rw-tip-nav { display: flex; justify-content: space-between; gap: 8px; }
 
 @media (max-width: 520px) {
-  .rw-root { right: 12px; bottom: 12px; }
   .rw-launch { width: 78px; height: 78px; }
   .rw-panel { bottom: 94px; height: min(560px, calc(100vh - 120px)); }
   .rw-teaser { bottom: 90px; }

@@ -199,11 +199,91 @@
   document.body.appendChild(root);
 
   var isOpen = false, greeted = false;
+
+  /* ───────── position : la mascotte se déplace à la souris, au doigt ou avec Maj + flèches ───────── */
+  var pos = { r: 18, b: 18 }; // distances aux bords droit et bas de la fenêtre
+  var vwidth = function () { return document.documentElement.clientWidth || window.innerWidth; };
+  function clampPos() {
+    var size = launch.offsetWidth || 92;
+    pos.r = Math.max(8, Math.min(vwidth() - size - 8, pos.r));
+    pos.b = Math.max(8, Math.min(window.innerHeight - size - 8, pos.b));
+  }
+  // La discussion s'ouvre du côté où il y a le plus de place, sans sortir de l'écran.
+  function placePanel() {
+    var rr = root.getBoundingClientRect(), vw = vwidth(), vh = window.innerHeight, gap = 12;
+    var w = Math.min(392, vw - 24);
+    var above = rr.top - gap - 8, below = vh - rr.bottom - gap - 8, up = above >= below;
+    var h = Math.max(200, Math.min(580, up ? above : below));
+    var left = Math.max(12, Math.min(vw - w - 12, rr.left + rr.width / 2 - w / 2)) - rr.left;
+    panel.style.width = w + 'px'; panel.style.height = h + 'px';
+    panel.style.left = left + 'px'; panel.style.right = 'auto';
+    panel.style.transformOrigin = up ? '50% 100%' : '50% 0';
+    if (up) { panel.style.bottom = (rr.height + gap) + 'px'; panel.style.top = 'auto'; }
+    else { panel.style.top = (rr.height + gap) + 'px'; panel.style.bottom = 'auto'; }
+  }
+  function placeTeaser() {
+    var rr = root.getBoundingClientRect(), vh = window.innerHeight, gap = 12;
+    var right = rr.left + rr.width / 2 > vwidth() / 2;
+    teaser.style.left = right ? 'auto' : '8px'; teaser.style.right = right ? '8px' : 'auto';
+    if (rr.top > 110 || rr.top > vh - rr.bottom) { teaser.style.bottom = (rr.height + gap) + 'px'; teaser.style.top = 'auto'; }
+    else { teaser.style.top = (rr.height + gap) + 'px'; teaser.style.bottom = 'auto'; }
+  }
+  function applyPos() {
+    clampPos();
+    root.style.setProperty('--rw-r', pos.r + 'px'); root.style.setProperty('--rw-b', pos.b + 'px');
+    if (isOpen) placePanel();
+    if (!teaser.hidden) placeTeaser();
+  }
+  function savePos() { store.set('rw-pos', Math.round(pos.r) + ',' + Math.round(pos.b)); }
+  var savedPos = (store.get('rw-pos') || '').split(',').map(Number);
+  if (savedPos.length === 2 && isFinite(savedPos[0]) && isFinite(savedPos[1])) { pos.r = savedPos[0]; pos.b = savedPos[1]; }
+  launch.title = UI.dragHint;
+
+  var drag = null, dragMoved = false;
+  launch.addEventListener('pointerdown', function (e) {
+    if (e.button !== undefined && e.button !== 0) return;
+    drag = { x: e.clientX, y: e.clientY, r: pos.r, b: pos.b, id: e.pointerId, on: false };
+    dragMoved = false;
+    try { launch.setPointerCapture(e.pointerId); } catch (x) {}
+  });
+  launch.addEventListener('pointermove', function (e) {
+    if (!drag || e.pointerId !== drag.id) return;
+    var dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+    if (!drag.on) {
+      if (Math.hypot(dx, dy) < 6) return; // en dessous : c'est un clic
+      drag.on = true; dragMoved = true;
+      launchAvatar.classList.add('is-held'); launch.classList.add('is-dragging');
+      teaser.hidden = true;
+    }
+    pos.r = drag.r - dx; pos.b = drag.b - dy;
+    applyPos();
+  });
+  function endDrag(e) {
+    if (!drag || (e && e.pointerId !== drag.id)) return;
+    if (drag.on) {
+      launchAvatar.classList.remove('is-held'); launch.classList.remove('is-dragging');
+      if (!reduced) { launchAvatar.classList.add('is-hop'); setTimeout(function () { launchAvatar.classList.remove('is-hop'); }, 1100); }
+      savePos();
+    }
+    drag = null;
+  }
+  launch.addEventListener('pointerup', endDrag);
+  launch.addEventListener('pointercancel', endDrag);
+  launch.addEventListener('keydown', function (e) { // au clavier : Maj + flèches
+    var step = { ArrowLeft: [24, 0], ArrowRight: [-24, 0], ArrowUp: [0, 24], ArrowDown: [0, -24] }[e.key];
+    if (!e.shiftKey || !step) return;
+    e.preventDefault();
+    pos.r += step[0]; pos.b += step[1];
+    applyPos(); savePos();
+  });
+  window.addEventListener('resize', applyPos);
+  applyPos();
   function open(focus) {
     if (isOpen) return;
     isOpen = true;
     teaser.hidden = true;
     panel.hidden = false;
+    placePanel();
     requestAnimationFrame(function () { panel.classList.add('on'); });
     launch.setAttribute('aria-expanded', 'true');
     launch.classList.add('is-open');
@@ -220,7 +300,7 @@
     setTimeout(function () { if (!isOpen) panel.hidden = true; }, reduced ? 0 : 220);
     setTalking(false);
   }
-  launch.addEventListener('click', function () { isOpen ? close() : open(); });
+  launch.addEventListener('click', function () { if (dragMoved) { dragMoved = false; return; } isOpen ? close() : open(); });
   closeBtn.addEventListener('click', function () { close(); launch.focus(); });
   tourBtn.addEventListener('click', function () { close(); startTour('full'); });
   teaserText.addEventListener('click', function () { open(); });
@@ -378,6 +458,7 @@
     setTimeout(function () {
       if (isOpen || store.get('rw-seen') || store.get('rw-tour')) return;
       teaser.hidden = false;
+      placeTeaser();
       teaser.classList.add('on');
       launchAvatar.classList.add('is-hop');
       setTimeout(function () { launchAvatar.classList.remove('is-hop'); }, 1200);
