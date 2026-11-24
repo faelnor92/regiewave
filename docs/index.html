@@ -1,244 +1,41 @@
 <!doctype html>
-<html lang="fr">
+<html lang="fr" class="no-js">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>RegieWave — direct, régie, montage et composition</title>
-<meta name="description" content="RegieWave : logiciel gratuit pour Windows qui réunit le direct (comme OBS), la régie, le montage vidéo et la composition. Version alpha.">
+<title>RegieWave</title>
+<meta name="description" content="RegieWave — direct, régie, montage et composition. / live, studio, editing and compositing.">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://faelnor92.github.io/regiewave/">
+<link rel="alternate" hreflang="fr" href="https://faelnor92.github.io/regiewave/fr/">
+<link rel="alternate" hreflang="en" href="https://faelnor92.github.io/regiewave/en/">
+<link rel="alternate" hreflang="x-default" href="https://faelnor92.github.io/regiewave/">
 <meta property="og:title" content="RegieWave">
-<meta property="og:description" content="Le direct, la régie, le montage et la composition dans un seul logiciel, gratuit, pour Windows.">
-<meta property="og:image" content="https://faelnor92.github.io/regiewave/images/direct.jpg">
-<link rel="icon" href="images/mascotte.png">
-<style>
-  :root {
-    --bg: #0d0b24;
-    --panel: #161236;
-    --panel-2: #1d1846;
-    --line: #2c2563;
-    --text: #f2f1fb;
-    --muted: #b9b4dc;
-    --cyan: #5fe1ff;
-    --pink: #ff3d9a;
-    --violet: #7b4dff;
-    --warn: #ffcf5a;
-    --radius: 16px;
+<meta property="og:image" content="https://faelnor92.github.io/regiewave/assets/img/og-image.jpg">
+<link rel="icon" type="image/png" href="assets/img/favicon-64.png">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>
+(function () {
+  var lang = null;
+  try { lang = localStorage.getItem("rw-lang"); } catch (e) {}
+  if (lang !== "fr" && lang !== "en") {
+    var nav = (navigator.languages && navigator.languages[0]) || navigator.language || "fr";
+    lang = /^fr/i.test(nav) ? "fr" : "en";
   }
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    margin: 0;
-    background: radial-gradient(1200px 600px at 80% -10%, #2a1470 0%, transparent 60%),
-                radial-gradient(900px 500px at -10% 20%, #0b2a5c 0%, transparent 60%), var(--bg);
-    color: var(--text);
-    font: 17px/1.6 "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
-  }
-  a { color: var(--cyan); }
-  img, video { max-width: 100%; height: auto; display: block; }
-  .wrap { width: min(1160px, 100% - 32px); margin: 0 auto; }
-
-  header.top {
-    display: flex; align-items: center; justify-content: space-between; gap: 16px;
-    padding: 18px 0;
-  }
-  .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 20px; text-decoration: none; color: var(--text); }
-  .brand img { width: 40px; height: 40px; }
-  nav.links { display: flex; gap: 22px; flex-wrap: wrap; }
-  nav.links a { color: var(--muted); text-decoration: none; font-weight: 600; }
-  nav.links a:hover { color: var(--text); }
-
-  .hero { display: grid; grid-template-columns: 0.85fr 1.35fr; gap: 40px; align-items: center; padding: 40px 0 56px; }
-  .tag { display: inline-block; padding: 4px 12px; border-radius: 999px; background: rgba(255, 207, 90, .12); color: var(--warn); font-weight: 700; font-size: 14px; letter-spacing: .02em; }
-  h1 { font-size: clamp(36px, 5vw, 56px); line-height: 1.05; margin: 16px 0 18px; letter-spacing: -0.02em; }
-  h1 .grad { background: linear-gradient(90deg, var(--cyan), var(--pink)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .lead { font-size: 20px; color: var(--muted); margin: 0 0 28px; max-width: 34ch; }
-  .buttons { display: flex; gap: 14px; flex-wrap: wrap; }
-  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 22px; border-radius: 12px; font-weight: 700; text-decoration: none; }
-  .btn.main { background: linear-gradient(90deg, var(--violet), var(--pink)); color: #fff; box-shadow: 0 10px 30px rgba(255, 61, 154, .25); }
-  .btn.ghost { border: 1px solid var(--line); color: var(--text); background: rgba(255, 255, 255, .03); }
-  .btn:hover { filter: brightness(1.08); }
-  .small { font-size: 14px; color: var(--muted); margin-top: 14px; }
-  .shot { border-radius: var(--radius); border: 1px solid var(--line); box-shadow: 0 24px 60px rgba(0, 0, 0, .45); overflow: hidden; background: #000; }
-  .hero .shot { transform: perspective(1400px) rotateY(-6deg); }
-
-  section { padding: 56px 0; }
-  h2 { font-size: clamp(28px, 4vw, 40px); margin: 0 0 12px; letter-spacing: -0.01em; }
-  .intro { color: var(--muted); max-width: 70ch; margin: 0 0 32px; }
-
-  .video { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: #000; }
-  .video video { width: 100%; height: auto; }
-
-  .feature { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: center; margin: 0 0 64px; }
-  .feature:nth-of-type(even) .shot { order: 2; }
-  .feature h3 { font-size: 28px; margin: 0 0 8px; }
-  .feature .kicker { color: var(--pink); font-weight: 700; text-transform: uppercase; font-size: 13px; letter-spacing: .1em; }
-  .feature ul { margin: 14px 0 0; padding-left: 20px; color: var(--muted); }
-  .feature li { margin: 6px 0; }
-  .feature li strong { color: var(--text); }
-
-  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-  .card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; }
-  .card h3 { margin: 0 0 6px; font-size: 19px; }
-  .card p { margin: 0; color: var(--muted); font-size: 16px; }
-
-  .alpha { background: linear-gradient(135deg, rgba(255, 207, 90, .10), rgba(255, 61, 154, .08)); border: 1px solid rgba(255, 207, 90, .35); border-radius: var(--radius); padding: 26px 28px; }
-  .alpha h2 { font-size: 26px; color: var(--warn); }
-  .alpha p { margin: 8px 0 0; color: var(--text); }
-
-  .specs { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-  footer { padding: 40px 0 60px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); margin-top: 32px; }
-  footer p { margin: 6px 0; }
-
-  @media (max-width: 860px) {
-    .hero, .feature, .specs { grid-template-columns: 1fr; gap: 24px; }
-    .hero .shot { transform: none; }
-    .feature:nth-of-type(even) .shot { order: 0; }
-    .cards { grid-template-columns: 1fr; }
-    nav.links { display: none; }
-  }
-</style>
+  location.replace(lang + "/" + location.hash);
+})();
+</script>
 </head>
-<body>
-<div class="wrap">
-  <header class="top">
-    <a class="brand" href="#"><img src="images/mascotte.png" alt="">RegieWave</a>
-    <nav class="links">
-      <a href="#video">Vidéo</a>
-      <a href="#fonctions">Fonctions</a>
-      <a href="#alpha">Version alpha</a>
-      <a href="#installer">Installer</a>
-    </nav>
-  </header>
-
-  <div class="hero">
-    <div>
-      <span class="tag">VERSION ALPHA · GRATUIT · WINDOWS</span>
-      <h1>Le direct, la régie, le montage et la composition, <span class="grad">dans un seul logiciel</span>.</h1>
-      <p class="lead">Diffusez comme avec OBS, réalisez comme en régie, montez vos vidéos et animez vos titres, sans changer de logiciel.</p>
-      <div class="buttons">
-        <a class="btn main" href="https://github.com/faelnor92/regiewave/releases/latest">Télécharger pour Windows</a>
-        <a class="btn ghost" href="#video">Voir la vidéo</a>
-      </div>
-      <p class="small">Windows 10 (1809) ou 11, 64 bits. En français, avec l'anglais en cours.</p>
-    </div>
-    <div class="shot"><img src="images/direct.jpg" alt="Le Direct de RegieWave : capture d'un jeu, avatar, chat et objectif d'abonnements" width="1920" height="1080"></div>
+<body style="display:grid;place-items:center;min-height:100vh;text-align:center">
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+<div>
+  <img src="assets/img/mascotte.png" alt="" width="140" height="140" style="margin:0 auto 10px">
+  <h1 style="font-size:2.4rem;margin-bottom:6px">RegieWave</h1>
+  <p class="lead" style="margin:0 auto 26px">Direct, régie, montage et composition.<br>Live, studio, editing and compositing.</p>
+  <div class="cta" style="justify-content:center">
+    <a class="btn btn-primary btn-big" href="fr/">Français</a>
+    <a class="btn btn-ghost btn-big" href="en/">English</a>
   </div>
-</div>
-
-<section id="video">
-  <div class="wrap">
-    <h2>RegieWave en une minute</h2>
-    <p class="intro">Tout ce que montre cette vidéo sort de RegieWave : l'enregistrement du direct pendant les changements de scène, puis une bande-annonce montée et rendue par RegieWave.</p>
-    <div class="video">
-      <video controls preload="none" poster="images/video-affiche.jpg" width="1280" height="720">
-        <source src="regiewave-demo-720p.mp4" type="video/mp4">
-        Votre navigateur ne lit pas cette vidéo : <a href="regiewave-demo-720p.mp4">téléchargez-la</a>.
-      </video>
-    </div>
-  </div>
-</section>
-
-<section id="fonctions">
-  <div class="wrap">
-    <h2>Quatre ateliers, un seul projet</h2>
-    <p class="intro">Les scènes du direct, les montages et les compositions vivent dans le même projet : un titre animé se crée une fois et sert partout.</p>
-
-    <div class="feature">
-      <div class="shot"><img src="images/direct.jpg" alt="Atelier Direct" loading="lazy" width="1920" height="1080"></div>
-      <div>
-        <div class="kicker">Direct</div>
-        <h3>Diffuser et enregistrer</h3>
-        <ul>
-          <li><strong>Captures</strong> de jeu, de fenêtre, d'écran, webcam, vidéos, images, textes et pages web.</li>
-          <li><strong>Plusieurs destinations</strong> à la fois (Twitch, YouTube, Kick, SRT, WHIP), débit qui s'adapte à la connexion.</li>
-          <li><strong>Alertes et chat</strong> Twitch intégrés, objectif d'abonnés, chat commun Twitch, YouTube et Kick.</li>
-          <li><strong>Avatars</strong> PNGtuber, 3D (VRM) et Inochi2D qui suivent la voix ou le visage.</li>
-          <li><strong>Compatible OBS</strong> : import des scènes, contrôle par obs-websocket (Stream Deck, Streamer.bot…).</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="feature">
-      <div class="shot"><img src="images/regie.jpg" alt="Atelier Régie : multivue, aperçu et programme" loading="lazy" width="1920" height="1080"></div>
-      <div>
-        <div class="kicker">Régie</div>
-        <h3>Réaliser comme en studio</h3>
-        <ul>
-          <li><strong>Multivue</strong> de toutes les scènes, aperçu et programme côte à côte.</li>
-          <li><strong>Barre en T</strong>, coupe et transitions, dont les stingers vidéo.</li>
-          <li><strong>Conducteur</strong>, bandeaux, prompteur et ralentis de la mémoire de relecture.</li>
-          <li><strong>Sorties</strong> sur un écran ou en caméra virtuelle, scène par scène.</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="feature">
-      <div class="shot"><img src="images/montage.jpg" alt="Atelier Montage : timeline avec plans, titres et son" loading="lazy" width="1920" height="1080"></div>
-      <div>
-        <div class="kicker">Montage</div>
-        <h3>Monter à la souris</h3>
-        <ul>
-          <li><strong>Pistes</strong> d'image et de son, titres, fondus, vitesse, lecture inversée, arrêt sur image.</li>
-          <li><strong>Étalonnage</strong>, sous-titres, mixage avec automation, son 5.1.</li>
-          <li><strong>Export</strong> H.264, HEVC, AV1, ProRes, et échanges AAF, OTIO, EDL, FCP XML.</li>
-          <li>Vos <strong>enregistrements du direct</strong> s'ouvrent directement en montage.</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="feature">
-      <div class="shot"><img src="images/composition.jpg" alt="Atelier Composition : titre 3D en relief et images clés" loading="lazy" width="1920" height="1080"></div>
-      <div>
-        <div class="kicker">Composition</div>
-        <h3>Animer titres et habillages</h3>
-        <ul>
-          <li><strong>Calques et images clés</strong>, courbes, expressions.</li>
-          <li><strong>3D</strong> : relief, lumières, ombres portées, caméra.</li>
-          <li><strong>Suivi</strong> de mouvement, détourage d'un objet en un clic, retouche photo et PSD.</li>
-          <li>Une composition devient une <strong>source du direct</strong> ou un clip du montage.</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="cards">
-      <div class="card"><h3>Gratuit</h3><p>Sans abonnement ni filigrane. Ce que vous créez vous appartient, y compris pour le monétiser.</p></div>
-      <div class="card"><h3>Simple d'abord</h3><p>Des réglages simples par défaut ; tout le reste se déplie quand vous en avez besoin.</p></div>
-      <div class="card"><h3>Respect de la vie privée</h3><p>RegieWave n'envoie aucune donnée à son auteur. Les clés de diffusion restent dans le coffre de Windows.</p></div>
-    </div>
-  </div>
-</section>
-
-<section id="alpha">
-  <div class="wrap">
-    <div class="alpha">
-      <h2>⚠️ Version alpha</h2>
-      <p>RegieWave est encore en développement : beaucoup de fonctions n'ont été essayées que sur un seul ordinateur, pas encore avec tous les modèles de webcams, micros, cartes graphiques et services de diffusion. Faites un essai avant un direct important, gardez une copie de vos projets et <a href="https://github.com/faelnor92/regiewave/issues">signalez les problèmes</a> : c'est ce qui fait avancer le logiciel.</p>
-    </div>
-  </div>
-</section>
-
-<section id="installer">
-  <div class="wrap">
-    <h2>Installer</h2>
-    <div class="specs">
-      <div class="card">
-        <h3>1. Télécharger</h3>
-        <p>Dans la <a href="https://github.com/faelnor92/regiewave/releases/latest">dernière version</a>, prenez <code>RegieWave-…-installation.exe</code>. Tout est inclus : FFmpeg, Chromium pour les pages web, runtime Visual C++.</p>
-      </div>
-      <div class="card">
-        <h3>2. Installer</h3>
-        <p>« Pour tous les utilisateurs » (caméra virtuelle comprise) ou « pour moi seulement », sans droits d'administrateur. L'installateur n'est pas encore signé : SmartScreen peut demander « Exécuter quand même ».</p>
-      </div>
-    </div>
-    <p class="small">Mises à jour depuis RegieWave (Outils → Mises à jour…), vérifiées par leur empreinte SHA-256, avec retour possible à la version précédente.</p>
-  </div>
-</section>
-
-<div class="wrap">
-  <footer>
-    <p>RegieWave · logiciel gratuit, fourni sans garantie. <a href="https://github.com/faelnor92/regiewave">Page GitHub</a> · <a href="https://github.com/faelnor92/regiewave/issues">Signaler un problème</a></p>
-    <p>Images de démonstration : <em>Big Buck Bunny</em> © Blender Foundation, <a href="https://peach.blender.org/">peach.blender.org</a>, licence CC-BY 3.0 ; avatar <em>Seed-san</em> © VirtualCast, Inc., <a href="https://vrm.dev/licenses/1.0/">VRM Public License 1.0</a> ; capture du menu du jeu <em>ROB RUN</em>, droits à son éditeur ; mascotte dessinée pour RegieWave.</p>
-    <p>OBS est une marque de ses propriétaires ; RegieWave n'est pas affilié à OBS, Twitch, YouTube ni Kick.</p>
-  </footer>
 </div>
 </body>
 </html>

@@ -31,9 +31,9 @@ installe en gardant la version précédente pour pouvoir y revenir.
 
 | | |
 |---|---|
-| [![Le Direct](docs/images/direct.jpg)](docs/images/direct.jpg) | [![La Régie](docs/images/regie.jpg)](docs/images/regie.jpg) |
+| [![Le Direct](docs/assets/img/direct.jpg)](docs/assets/img/direct.jpg) | [![La Régie](docs/assets/img/regie.jpg)](docs/assets/img/regie.jpg) |
 | **Direct** : capture de jeu, avatar qui suit la voix, chat et objectif d'abonnés, plusieurs destinations à la fois. | **Régie** : multivue de toutes les scènes, aperçu et programme, barre en T, transitions. |
-| [![Le Montage](docs/images/montage.jpg)](docs/images/montage.jpg) | [![La Composition](docs/images/composition.jpg)](docs/images/composition.jpg) |
+| [![Le Montage](docs/assets/img/montage.jpg)](docs/assets/img/montage.jpg) | [![La Composition](docs/assets/img/composition.jpg)](docs/assets/img/composition.jpg) |
 | **Montage** : plans, titres, fondus et son, tout à la souris ; export H.264, HEVC, AV1, ProRes. | **Composition** : titres 3D en relief, lumières, images clés, retouche photo. |
 
 Images et vidéo faites avec RegieWave. Film : *Big Buck Bunny*

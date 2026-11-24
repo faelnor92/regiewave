@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://faelnor92.github.io/regiewave/sitemap.xml
