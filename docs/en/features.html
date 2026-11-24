@@ -21,9 +21,10 @@
 <link rel="icon" type="image/png" href="../assets/img/favicon-64.png">
 <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
 <link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/assistant.css">
 <script>document.documentElement.className = document.documentElement.className.replace("no-js", "js");</script>
 </head>
-<body>
+<body data-page="features">
 <a class="skip" href="#contenu">Skip to content</a>
 <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
 <div class="grid-bg" aria-hidden="true"></div>
@@ -33,7 +34,7 @@
     <a class="brand" href="index.html" aria-label="RegieWave — home"><img src="../assets/img/mascotte.png" alt="" width="36" height="36"> RegieWave <small>alpha</small></a>
     <button class="menu-btn" aria-expanded="false" aria-controls="nav" aria-label="Menu"><span></span></button>
     <nav class="nav" id="nav" aria-label="Main navigation">
-      <a href="index.html">Home</a><a href="features.html" aria-current="page">Features</a><a href="download.html">Download</a><a href="guide.html">Guide</a><a href="about.html">About</a>
+      <a href="index.html">Home</a><a href="features.html" aria-current="page">Features</a><a href="download.html">Download</a><a href="guide.html">Guide</a><a href="../manuel/">Manual (FR)</a><a href="about.html">About</a>
       <span class="lang" role="group" aria-label="Language"><a href="../fr/fonctions.html" lang="fr" hreflang="fr">FR</a><a href="../en/features.html" lang="en" hreflang="en" aria-current="true">EN</a></span>
     </nav>
   </div>
@@ -42,7 +43,7 @@
 <section class="page-hero"><div class="wrap"><div class="eyebrow reveal">Features</div>
 <h1 class="reveal" style="--d:.06s">Everything <span class="grad-text">RegieWave</span> does</h1>
 <p class="lead reveal" style="--d:.12s">Four workspaces in one project, a studio-grade mixer, avatars, and compatibility with what you already use.</p></div></section>
-<div class="wrap"><nav class="toc" aria-label="Contents"><a href="#direct">Direct</a><a href="#regie">Studio</a><a href="#montage">Editing</a><a href="#composition">Composition</a><a href="#audio">Audio</a><a href="#avatars">Avatars</a><a href="#compat">Compatibility</a></nav>
+<div class="wrap"><nav class="toc" data-tour="toc" aria-label="Contents"><a href="#direct">Direct</a><a href="#regie">Studio</a><a href="#montage">Editing</a><a href="#composition">Composition</a><a href="#audio">Audio</a><a href="#avatars">Avatars</a><a href="#compat">Compatibility</a></nav>
 <section class="feature" id="direct"><div class="feature-text reveal"><div class="eyebrow">Stream and record</div><h2>Direct</h2><p class="lead">Capture, compose your scenes, stream and record, with simple defaults.</p>
 <ul><li><b>Sources</b>: game, screen and window capture, webcam, videos, images, text, web pages and compositions.</li><li><b>Several destinations</b> at once: Twitch, YouTube, Kick, SRT, WHIP (very low-latency WebRTC); adaptive bitrate.</li><li><b>Recording</b> in H.264, HEVC, AV1 or ProRes, with optional separate audio tracks.</li><li>Built-in <b>Twitch alerts</b>, goals, combined Twitch, YouTube and Kick chat with emotes.</li><li><b>Vertical output</b> for short-form video, and delayed streaming with a panic button.</li></ul></div><div class="reveal" style="--d:.12s"><div class="frame"><div class="frame-top"><i></i><i></i><i></i><span>RegieWave — Live</span></div><img src="../assets/img/direct-960.jpg" srcset="../assets/img/direct-960.jpg 960w, ../assets/img/direct.jpg 1920w" sizes="(max-width: 960px) 100vw, 780px" width="1920" height="1080" alt="The Live workspace" loading="lazy" decoding="async" ></div></div></section><section class="feature" id="regie"><div class="feature-text reveal"><div class="eyebrow">Direct it like a studio</div><h2>Studio</h2><p class="lead">With several scenes and a real running order, the Studio workspace takes over.</p>
 <ul><li><b>Multiview</b> of all scenes, preview and program side by side, <b>Studio mode</b> with a T-bar.</li><li><b>Per-scene transitions</b>, transition table, <b>video stingers</b> with transparency.</li><li><b>Run-of-show</b>, lower thirds, teleprompter, soundboard.</li><li><b>Replay memory</b>: keep the last seconds for a slow-motion replay, without re-encoding.</li><li><b>Outputs</b> to a screen, a <b>virtual camera</b> or NDI, scene by scene.</li></ul></div><div class="reveal" style="--d:.12s"><div class="frame"><div class="frame-top"><i></i><i></i><i></i><span>RegieWave — Studio</span></div><img src="../assets/img/regie-960.jpg" srcset="../assets/img/regie-960.jpg 960w, ../assets/img/regie.jpg 1920w" sizes="(max-width: 960px) 100vw, 780px" width="1920" height="1080" alt="The Studio workspace" loading="lazy" decoding="async" ></div></div></section><section class="feature" id="montage"><div class="feature-text reveal"><div class="eyebrow">Edit with the mouse</div><h2>Editing</h2><p class="lead">A complete editor, where everything works with the mouse.</p>
@@ -72,6 +73,7 @@
       <div><h4>Discover</h4><ul>
         <li><a href="features.html">Features</a></li>
         <li><a href="guide.html">Guide</a></li>
+        <li><a href="../manuel/">Full manual (French)</a></li>
         <li><a href="index.html#video">Video</a></li></ul></div>
       <div><h4>Download</h4><ul>
         <li><a href="download.html#windows">Windows</a></li>
@@ -89,5 +91,7 @@
   </div>
 </footer>
 <script src="../assets/js/site.js" defer></script>
+<script src="../assets/js/assistant-data.js" defer></script>
+<script src="../assets/js/assistant.js" defer></script>
 </body>
 </html>

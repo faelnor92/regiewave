@@ -7,6 +7,7 @@ Logiciel tout-en-un pour Windows et Linux : **direct** (comme OBS), **régie**,
 
 **[Voir la vidéo de présentation (1 minute)](https://faelnor92.github.io/regiewave/#video)**
 · [Site de RegieWave](https://faelnor92.github.io/regiewave/)
+· [Manuel](https://faelnor92.github.io/regiewave/manuel/)
 
 > **⚠️ Version alpha.** RegieWave est encore en développement : beaucoup de
 > fonctions n'ont été essayées que sur un seul ordinateur, pas encore avec

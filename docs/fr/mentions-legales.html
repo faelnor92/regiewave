@@ -21,9 +21,10 @@
 <link rel="icon" type="image/png" href="../assets/img/favicon-64.png">
 <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
 <link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/assistant.css">
 <script>document.documentElement.className = document.documentElement.className.replace("no-js", "js");</script>
 </head>
-<body>
+<body data-page="legal">
 <a class="skip" href="#contenu">Aller au contenu</a>
 <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
 <div class="grid-bg" aria-hidden="true"></div>
@@ -33,7 +34,7 @@
     <a class="brand" href="index.html" aria-label="RegieWave — accueil"><img src="../assets/img/mascotte.png" alt="" width="36" height="36"> RegieWave <small>alpha</small></a>
     <button class="menu-btn" aria-expanded="false" aria-controls="nav" aria-label="Menu"><span></span></button>
     <nav class="nav" id="nav" aria-label="Navigation principale">
-      <a href="index.html">Accueil</a><a href="fonctions.html">Fonctions</a><a href="telecharger.html">Télécharger</a><a href="guide.html">Guide</a><a href="a-propos.html">À propos</a>
+      <a href="index.html">Accueil</a><a href="fonctions.html">Fonctions</a><a href="telecharger.html">Télécharger</a><a href="guide.html">Guide</a><a href="../manuel/">Manuel</a><a href="a-propos.html">À propos</a>
       <span class="lang" role="group" aria-label="Langue"><a href="../fr/mentions-legales.html" lang="fr" hreflang="fr" aria-current="true">FR</a><a href="../en/legal-notice.html" lang="en" hreflang="en">EN</a></span>
     </nav>
   </div>
@@ -62,6 +63,7 @@
 <p><strong>Ce site ne dépose aucun cookie, n’utilise ni statistiques de visite, ni publicité, ni police, image ou script venant d’un autre serveur, et n’a ni compte ni formulaire.</strong></p>
 <ul>
 <li>Votre navigateur garde seulement, sur votre appareil, la langue que vous avez choisie (clé <code>rw-lang</code>). Elle n’est jamais envoyée à personne et s’efface avec les données du site.</li>
+<li>L’assistant (la mascotte) fonctionne entièrement dans votre navigateur : vos questions ne sont envoyées à personne et ne sont pas conservées. Il note seulement, le temps de l’onglet (stockage de session), si la visite guidée est en cours et si sa bulle d’accueil a déjà été montrée.</li>
 <li>Comme pour tout site web, le serveur d’hébergement (GitHub) reçoit des données techniques de connexion, dont votre adresse IP. Leur traitement relève de la <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">politique de confidentialité de GitHub</a>.</li>
 <li>La page « Télécharger » interroge GitHub (api.github.com) depuis votre navigateur pour afficher la dernière version publiée ; GitHub reçoit alors votre adresse IP. Sans réponse, la page reste utilisable.</li>
 <li>Le logiciel RegieWave n’envoie aucune donnée à son auteur. Il se connecte seulement aux services que vous choisissez (Twitch, YouTube…) et, si vous le demandez, à GitHub pour chercher une mise à jour.</li>
@@ -86,6 +88,7 @@
       <div><h4>Découvrir</h4><ul>
         <li><a href="fonctions.html">Fonctions</a></li>
         <li><a href="guide.html">Guide</a></li>
+        <li><a href="../manuel/">Manuel complet</a></li>
         <li><a href="index.html#video">Vidéo</a></li></ul></div>
       <div><h4>Télécharger</h4><ul>
         <li><a href="telecharger.html#windows">Windows</a></li>
@@ -103,5 +106,7 @@
   </div>
 </footer>
 <script src="../assets/js/site.js" defer></script>
+<script src="../assets/js/assistant-data.js" defer></script>
+<script src="../assets/js/assistant.js" defer></script>
 </body>
 </html>

@@ -21,9 +21,10 @@
 <link rel="icon" type="image/png" href="../assets/img/favicon-64.png">
 <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
 <link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/assistant.css">
 <script>document.documentElement.className = document.documentElement.className.replace("no-js", "js");</script>
 </head>
-<body>
+<body data-page="download">
 <a class="skip" href="#contenu">Aller au contenu</a>
 <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
 <div class="grid-bg" aria-hidden="true"></div>
@@ -33,7 +34,7 @@
     <a class="brand" href="index.html" aria-label="RegieWave — accueil"><img src="../assets/img/mascotte.png" alt="" width="36" height="36"> RegieWave <small>alpha</small></a>
     <button class="menu-btn" aria-expanded="false" aria-controls="nav" aria-label="Menu"><span></span></button>
     <nav class="nav" id="nav" aria-label="Navigation principale">
-      <a href="index.html">Accueil</a><a href="fonctions.html">Fonctions</a><a href="telecharger.html" aria-current="page">Télécharger</a><a href="guide.html">Guide</a><a href="a-propos.html">À propos</a>
+      <a href="index.html">Accueil</a><a href="fonctions.html">Fonctions</a><a href="telecharger.html" aria-current="page">Télécharger</a><a href="guide.html">Guide</a><a href="../manuel/">Manuel</a><a href="a-propos.html">À propos</a>
       <span class="lang" role="group" aria-label="Langue"><a href="../fr/telecharger.html" lang="fr" hreflang="fr" aria-current="true">FR</a><a href="../en/download.html" lang="en" hreflang="en">EN</a></span>
     </nav>
   </div>
@@ -43,7 +44,7 @@
 <h1 class="reveal" style="--d:.06s">Installer <span class="grad-text">RegieWave</span></h1>
 <p class="lead reveal" style="--d:.12s">Gratuit. Tout ce dont le logiciel a besoin est inclus : FFmpeg, Chromium pour les pages web, et le reste.</p></div></section>
 <section class="section" style="padding-top:20px" data-release="https://api.github.com/repos/faelnor92/regiewave/releases/latest" lang="fr"><div class="wrap">
-<div class="dl-grid">
+<div class="dl-grid" data-tour="downloads">
 <div class="dl reveal" id="windows" data-os="windows" data-asset="windows"><span class="mine-badge">Votre système</span>
 <div class="os"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5.5 10.5 4.4v7H3zM11.5 4.3 21 3v8.4h-9.5zM3 12.6h7.5v7L3 18.5zM11.5 12.6H21V21l-9.5-1.3z"/></svg><div><h3>Windows</h3><div class="tagline">Installateur</div></div></div>
 <dl><dt>Version</dt><dd data-release-version>0.1.0 alpha</dd>
@@ -93,6 +94,7 @@
       <div><h4>Découvrir</h4><ul>
         <li><a href="fonctions.html">Fonctions</a></li>
         <li><a href="guide.html">Guide</a></li>
+        <li><a href="../manuel/">Manuel complet</a></li>
         <li><a href="index.html#video">Vidéo</a></li></ul></div>
       <div><h4>Télécharger</h4><ul>
         <li><a href="telecharger.html#windows">Windows</a></li>
@@ -110,5 +112,7 @@
   </div>
 </footer>
 <script src="../assets/js/site.js" defer></script>
+<script src="../assets/js/assistant-data.js" defer></script>
+<script src="../assets/js/assistant.js" defer></script>
 </body>
 </html>

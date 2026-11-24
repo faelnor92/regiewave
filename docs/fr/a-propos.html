@@ -21,9 +21,10 @@
 <link rel="icon" type="image/png" href="../assets/img/favicon-64.png">
 <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
 <link rel="stylesheet" href="../assets/css/site.css">
+<link rel="stylesheet" href="../assets/css/assistant.css">
 <script>document.documentElement.className = document.documentElement.className.replace("no-js", "js");</script>
 </head>
-<body>
+<body data-page="about">
 <a class="skip" href="#contenu">Aller au contenu</a>
 <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
 <div class="grid-bg" aria-hidden="true"></div>
@@ -33,7 +34,7 @@
     <a class="brand" href="index.html" aria-label="RegieWave — accueil"><img src="../assets/img/mascotte.png" alt="" width="36" height="36"> RegieWave <small>alpha</small></a>
     <button class="menu-btn" aria-expanded="false" aria-controls="nav" aria-label="Menu"><span></span></button>
     <nav class="nav" id="nav" aria-label="Navigation principale">
-      <a href="index.html">Accueil</a><a href="fonctions.html">Fonctions</a><a href="telecharger.html">Télécharger</a><a href="guide.html">Guide</a><a href="a-propos.html" aria-current="page">À propos</a>
+      <a href="index.html">Accueil</a><a href="fonctions.html">Fonctions</a><a href="telecharger.html">Télécharger</a><a href="guide.html">Guide</a><a href="../manuel/">Manuel</a><a href="a-propos.html" aria-current="page">À propos</a>
       <span class="lang" role="group" aria-label="Langue"><a href="../fr/a-propos.html" lang="fr" hreflang="fr" aria-current="true">FR</a><a href="../en/about.html" lang="en" hreflang="en">EN</a></span>
     </nav>
   </div>
@@ -79,6 +80,7 @@
       <div><h4>Découvrir</h4><ul>
         <li><a href="fonctions.html">Fonctions</a></li>
         <li><a href="guide.html">Guide</a></li>
+        <li><a href="../manuel/">Manuel complet</a></li>
         <li><a href="index.html#video">Vidéo</a></li></ul></div>
       <div><h4>Télécharger</h4><ul>
         <li><a href="telecharger.html#windows">Windows</a></li>
@@ -96,5 +98,7 @@
   </div>
 </footer>
 <script src="../assets/js/site.js" defer></script>
+<script src="../assets/js/assistant-data.js" defer></script>
+<script src="../assets/js/assistant.js" defer></script>
 </body>
 </html>
